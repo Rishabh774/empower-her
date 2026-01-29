@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --light-bg: #FFF4F6;
+            --dark-text: #2B2B2B;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, #E75480 0%, #6A1E55 100%);
+            color: white;
+            padding: 100px 0 80px;
+            border-radius: 0 0 40px 40px;
+        }
+        
+        .mission-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: none;
+            transition: all 0.3s ease;
+            border-left: 6px solid #E75480;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card {
+            background: #FFF4F6;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            border-left: 6px solid #E75480;
+        }
+        
+        .feature-card:hover {
+            border-color: #E75480;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(231, 84, 128, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #E75480, #6A1E55);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, #E75480, #6A1E55);
+            color: white;
+            padding: 80px 0;
+            border-radius: 40px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #F5B841, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .category-highlight .icon-wrapper {
+            background: linear-gradient(135deg, #E75480, #6A1E55);
+            border-radius: 15px;
+            padding: 30px;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #E75480 !important;">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="/images/logo.png" alt="EmpowerHer Logo" class="me-2" height="50">
+                EmpowerHer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Schemes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-sm ms-2" href="/login">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light btn-sm ms-2" href="/register">
+                            <i class="fas fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold mb-4">About EmpowerHer</h1>
+                    <p class="lead mb-4">Transforming lives through accessible opportunities and women empowerment</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <img src="/images/logo.png" alt="EmpowerHer Logo" class="img-fluid" style="max-height: 200px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="mission-card h-100">
+                        <div class="icon-wrapper mb-4">
+                            <i class="fas fa-bullseye fa-2x" style="color: #E75480;"></i>
+                        </div>
+                        <h3 class="fw-bold mb-4">Our Mission</h3>
+                        <p class="mb-4">
+                            EmpowerHer is a dedicated platform designed to bridge the gap between women 
+                            and government schemes specifically created for their empowerment, education, 
+                            and financial independence.
+                        </p>
+                        <p>
+                            We believe every woman should have easy access to information about schemes 
+                            that can transform their lives and help them achieve their dreams.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mission-card h-100">
+                        <div class="icon-wrapper mb-4">
+                            <i class="fas fa-eye fa-2x" style="color: #E75480;"></i>
+                        </div>
+                        <h3 class="fw-bold mb-4">Our Vision</h3>
+                        <p class="mb-4">
+                            To create a world where every woman has equal access to opportunities, 
+                            resources, and support systems that enable them to reach their full potential.
+                        </p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check me-2" style="color: #E75480;"></i>Comprehensive database of women-centric schemes</li>
+                            <li class="mb-2"><i class="fas fa-check me-2" style="color: #E75480;"></i>Easy categorization by government levels</li>
+                            <li class="mb-2"><i class="fas fa-check me-2" style="color: #E75480;"></i>Direct application links</li>
+                            <li class="mb-2"><i class="fas fa-check me-2" style="color: #E75480;"></i>Bookmarking and tracking features</li>
+                            <li><i class="fas fa-check me-2" style="color: #E75480;"></i>Regular updates on new schemes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">What We Offer</h2>
+                <p class="text-muted">Comprehensive features designed for women empowerment</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Comprehensive Database</h5>
+                        <p class="text-muted">Extensive collection of women-centric schemes from various sources</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Smart Categorization</h5>
+                        <p class="text-muted">Organized by government levels and categories for easy discovery</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Personal Bookmarks</h5>
+                        <p class="text-muted">Save and track schemes that matter to you</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Regular Updates</h5>
+                        <p class="text-muted">Stay informed about new schemes and opportunities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Scheme Categories</h2>
+                <p class="text-muted">Explore opportunities across different government levels</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="category-highlight text-center">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-landmark fa-2x text-white"></i>
+                        </div>
+                        <h5 class="fw-bold">Central Government</h5>
+                        <p class="text-muted small">National level schemes for women empowerment</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="category-highlight text-center">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-map-marker-alt fa-2x text-white"></i>
+                        </div>
+                        <h5 class="fw-bold">State Government</h5>
+                        <p class="text-muted small">State-specific women welfare schemes</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="category-highlight text-center">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-city fa-2x text-white"></i>
+                        </div>
+                        <h5 class="fw-bold">District Level</h5>
+                        <p class="text-muted small">Local district schemes and initiatives</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="category-highlight text-center">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-hands-helping fa-2x text-white"></i>
+                        </div>
+                        <h5 class="fw-bold">Private/NGO</h5>
+                        <p class="text-muted small">Private initiatives for women development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number">50+</div>
+                    <p class="mb-0">Active Schemes</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number">4</div>
+                    <p class="mb-0">Categories</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number">1000+</div>
+                    <p class="mb-0">Women Empowered</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="stat-number">24/7</div>
+                    <p class="mb-0">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #6A1E55; color: white; padding: 40px 0 20px; margin-top: 50px;">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="/images/logo.png" alt="EmpowerHer Logo" height="50" class="mb-3">
+                    <p class="mb-0">Empowering women through accessible government schemes and opportunities.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="/home" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Home</a>
+                        <a href="/categories" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">All Schemes</a>
+                        <a href="/about" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">About Us</a>
+                        <a href="/contact" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i>contact@empowerher.com</p>
+                    <p class="mb-0"><i class="fas fa-phone me-2"></i>+91-9876543210</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 EmpowerHer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

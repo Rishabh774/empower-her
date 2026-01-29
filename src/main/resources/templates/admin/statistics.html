@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --background-color: #FFF4F6;
+            --text-color: #2B2B2B;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .admin-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-card.primary { border-left-color: var(--primary-color); }
+        .stats-card.success { border-left-color: #28a745; }
+        .stats-card.warning { border-left-color: var(--accent-color); }
+        .stats-card.info { border-left-color: #17a2b8; }
+        .stats-card.secondary { border-left-color: var(--secondary-color); }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stats-card.primary .stats-number { color: var(--primary-color); }
+        .stats-card.success .stats-number { color: #28a745; }
+        .stats-card.warning .stats-number { color: var(--accent-color); }
+        .stats-card.info .stats-number { color: #17a2b8; }
+        .stats-card.secondary .stats-number { color: var(--secondary-color); }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .top-schemes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-schemes-list li {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.3s ease;
+        }
+
+        .top-schemes-list li:hover {
+            background-color: var(--background-color);
+        }
+
+        .top-schemes-list li:last-child {
+            border-bottom: none;
+        }
+
+        .share-count {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 15px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 admin-sidebar">
+                <div class="sidebar-header">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo">
+                    <h4>Admin Panel</h4>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/schemes}">
+                        <i class="fas fa-list"></i>Manage Schemes
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/schemes/add}">
+                        <i class="fas fa-plus-circle"></i>Add New Scheme
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/categories}">
+                        <i class="fas fa-layer-group"></i>Categories
+                    </a>
+                    <a class="nav-link active" th:href="@{/admin/statistics}">
+                        <i class="fas fa-chart-bar"></i>Statistics
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4">
+                <!-- Header -->
+                <div class="admin-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="fas fa-chart-bar me-2" style="color: var(--primary-color);"></i>
+                            Platform Statistics
+                        </h2>
+                        <span class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            <span th:text="${#temporals.format(#temporals.createNow(), 'dd MMM yyyy')}">Today</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Overview Stats -->
+                <div class="row mt-4">
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card primary">
+                            <div class="stats-number" th:text="${totalSchemes}">0</div>
+                            <div class="stats-label">Total Schemes</div>
+                            <i class="fas fa-list fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card success">
+                            <div class="stats-number" th:text="${activeSchemes}">0</div>
+                            <div class="stats-label">Active Schemes</div>
+                            <i class="fas fa-check-circle fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card warning">
+                            <div class="stats-number" th:text="${inactiveSchemes}">0</div>
+                            <div class="stats-label">Inactive Schemes</div>
+                            <i class="fas fa-pause-circle fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card info">
+                            <div class="stats-number" th:text="${totalShares}">0</div>
+                            <div class="stats-label">Total Shares</div>
+                            <i class="fas fa-share-alt fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card secondary">
+                            <div class="stats-number">4</div>
+                            <div class="stats-label">Categories</div>
+                            <i class="fas fa-layer-group fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-4">
+                        <div class="stats-card primary">
+                            <div class="stats-number">1000+</div>
+                            <div class="stats-label">Users</div>
+                            <i class="fas fa-users fa-2x text-muted float-end mt-3"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheme Distribution -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <h5 class="mb-4" style="color: var(--secondary-color);">
+                                <i class="fas fa-chart-pie me-2"></i>Schemes by Level
+                            </h5>
+                            <div class="row text-center">
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 rounded" style="background-color: var(--background-color);">
+                                        <h3 class="mb-1" style="color: var(--primary-color);" th:text="${centralSchemes}">0</h3>
+                                        <small class="text-muted">Central Govt</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="p-3 rounded" style="background-color: var(--background-color);">
+                                        <h3 class="mb-1" style="color: var(--accent-color);" th:text="${stateSchemes}">0</h3>
+                                        <small class="text-muted">State Govt</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 rounded" style="background-color: var(--background-color);">
+                                        <h3 class="mb-1" style="color: var(--secondary-color);" th:text="${districtSchemes}">0</h3>
+                                        <small class="text-muted">District Level</small>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="p-3 rounded" style="background-color: var(--background-color);">
+                                        <h3 class="mb-1" style="color: #17a2b8;" th:text="${privateSchemes}">0</h3>
+                                        <small class="text-muted">Private/NGO</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="chart-container">
+                            <h5 class="mb-4" style="color: var(--secondary-color);">
+                                <i class="fas fa-fire me-2"></i>Most Shared Schemes
+                            </h5>
+                            <ul class="top-schemes-list">
+                                <li th:each="scheme, stat : ${topSharedSchemes}">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="fw-bold" th:text="${stat.index + 1 + '. ' + scheme.title}">Scheme Title</span>
+                                            <br>
+                                            <small class="text-muted" th:text="${scheme.category.name}">Category</small>
+                                        </div>
+                                        <span class="share-count" th:text="${scheme.shareCount + ' shares'}">0 shares</span>
+                                    </div>
+                                </li>
+                                <li th:if="${topSharedSchemes.empty}" class="text-center text-muted py-4">
+                                    <i class="fas fa-inbox fa-2x mb-2"></i>
+                                    <br>
+                                    No sharing data available
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Distribution -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="chart-container">
+                            <h5 class="mb-4" style="color: var(--secondary-color);">
+                                <i class="fas fa-chart-bar me-2"></i>Schemes by Category
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-3 mb-3" th:each="category : ${categories}">
+                                    <div class="p-3 rounded text-center" 
+                                         style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white;">
+                                        <h4 class="mb-1" th:text="${category.schemes.size()}">0</h4>
+                                        <small th:text="${category.name}">Category</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

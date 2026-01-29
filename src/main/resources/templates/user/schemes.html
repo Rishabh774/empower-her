@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Schemes - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --background-color: #FFF4F6;
+            --text-color: #2B2B2B;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .user-sidebar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .user-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .scheme-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .scheme-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        .level-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d84575;
+            border-color: #d84575;
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .search-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .filter-buttons .btn {
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin: 5px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 user-sidebar">
+                <div class="sidebar-header">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo">
+                    <h4>User Panel</h4>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/user/dashboard}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" th:href="@{/user/schemes}">
+                        <i class="fas fa-list"></i>All Schemes
+                    </a>
+                    <a class="nav-link" th:href="@{/user/bookmarks}">
+                        <i class="fas fa-bookmark"></i>My Bookmarks
+                    </a>
+                    <a class="nav-link" th:href="@{/user/profile}">
+                        <i class="fas fa-user-cog"></i>Profile
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4">
+                <!-- Header -->
+                <div class="user-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="fas fa-list me-2" style="color: var(--primary-color);"></i>
+                            All Schemes
+                        </h2>
+                        <span class="badge bg-primary" th:text="${schemesCount + ' schemes'}">0 schemes</span>
+                    </div>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="search-box">
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <form th:action="@{/search}" method="get" class="d-flex">
+                                        <input type="text" name="query" class="form-control me-2" 
+                                               placeholder="Search schemes..." aria-label="Search schemes">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <div class="filter-buttons">
+                                        <a th:href="@{/categories}" class="btn btn-outline-primary">
+                                            <i class="fas fa-layer-group me-1"></i>By Category
+                                        </a>
+                                        <a th:href="@{/user/bookmarks}" class="btn btn-warning text-white">
+                                            <i class="fas fa-bookmark me-1"></i>My Bookmarks
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schemes Grid -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row g-4">
+                            <div class="col-md-6 col-lg-4" th:each="scheme : ${schemes}">
+                                <div class="scheme-card">
+                                    <div class="scheme-image">
+                                        <i class="fas fa-heart fa-3x"></i>
+                                        <span class="level-badge" th:text="${scheme.level}">Level</span>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <h5 class="card-title fw-bold" th:text="${scheme.title}">Scheme Title</h5>
+                                        <p class="card-text text-muted small" th:text="${scheme.shortDesc}">Short description</p>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="badge bg-secondary" th:text="${scheme.category.name}">Category</span>
+                                            <small class="text-muted">
+                                                <i class="fas fa-calendar me-1"></i>
+                                                <span th:text="${#temporals.format(scheme.createdAt, 'dd MMM')}">Date</span>
+                                            </small>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <a th:href="@{/scheme/{id}(id=${scheme.id})}" class="btn btn-primary btn-sm">
+                                                View Details
+                                            </a>
+                                            <button class="btn btn-outline-primary btn-sm bookmark-btn"
+                                                    th:data-scheme-id="${scheme.id}"
+                                                    th:class="${bookmarkedIds.contains(scheme.id)} ? 'btn-primary text-white' : 'btn-outline-primary'"
+                                                    th:onclick="|toggleBookmark(this, ${scheme.id})|">
+                                                <i th:class="${bookmarkedIds.contains(scheme.id)} ? 'fas fa-bookmark' : 'far fa-bookmark'"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div th:if="${schemes.empty}" class="text-center py-5">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+                                <h4 class="text-muted">No schemes available</h4>
+                                <p class="text-muted">Check back later for new women empowerment schemes.</p>
+                                <a th:href="@{/categories}" class="btn btn-primary">
+                                    <i class="fas fa-layer-group me-2"></i>Browse Categories
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="row mt-4" th:if="${schemes.size() > 12}">
+                    <div class="col-12 text-center">
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-redo me-2"></i>Load More Schemes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Bookmark functionality
+        async function toggleBookmark(button, schemeId) {
+            const csrfToken = document.querySelector('input[name="_csrf"]').value;
+            
+            // Add loading state
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/user/bookmark/' + schemeId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (data.bookmarked) {
+                        button.classList.remove('btn-outline-primary');
+                        button.classList.add('btn-primary', 'text-white');
+                        button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                    } else {
+                        button.classList.remove('btn-primary', 'text-white');
+                        button.classList.add('btn-outline-primary');
+                        button.innerHTML = '<i class="far fa-bookmark"></i>';
+                    }
+                } else {
+                    alert('Error: ' + data.error);
+                    button.innerHTML = originalHTML;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating bookmark');
+                button.innerHTML = originalHTML;
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // Search functionality enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('input[name="query"]');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    // Real-time search suggestions can be implemented here
+                });
+            }
+        });
+    </script>
+</body>
+</html>

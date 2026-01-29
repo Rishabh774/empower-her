@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookmarks - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --background-color: #FFF4F6;
+            --text-color: #2B2B2B;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .user-sidebar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .user-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .bookmark-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+
+        .bookmark-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d84575;
+            border-color: #d84575;
+        }
+
+        .btn-outline-danger {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .empty-state {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 user-sidebar">
+                <div class="sidebar-header">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo">
+                    <h4>User Panel</h4>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/user/dashboard}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" th:href="@{/user/schemes}">
+                        <i class="fas fa-list"></i>All Schemes
+                    </a>
+                    <a class="nav-link active" th:href="@{/user/bookmarks}">
+                        <i class="fas fa-bookmark"></i>My Bookmarks
+                    </a>
+                    <a class="nav-link" th:href="@{/user/profile}">
+                        <i class="fas fa-user-cog"></i>Profile
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4">
+                <!-- Header -->
+                <div class="user-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="fas fa-bookmark me-2" style="color: var(--accent-color);"></i>
+                            My Bookmarks
+                        </h2>
+                        <span class="badge bg-primary" th:text="${bookmarksCount + ' bookmarks'}">0 bookmarks</span>
+                    </div>
+                </div>
+
+                <!-- Bookmarks List -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <!-- Empty State -->
+                        <div th:if="${bookmarks.empty}" class="empty-state">
+                            <i class="fas fa-bookmark fa-4x text-muted mb-3"></i>
+                            <h3 class="text-muted mb-3">No bookmarks yet</h3>
+                            <p class="text-muted mb-4">Start exploring schemes and bookmark your favorites to find them easily later.</p>
+                            <a th:href="@{/user/schemes}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-list me-2"></i>Browse Schemes
+                            </a>
+                        </div>
+
+                        <!-- Bookmarks Grid -->
+                        <div th:unless="${bookmarks.empty}">
+                            <div class="bookmark-card" th:each="bookmark : ${bookmarks}">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h5 class="fw-bold mb-2" th:text="${bookmark.scheme.title}">Scheme Title</h5>
+                                        <p class="text-muted mb-2" th:text="${bookmark.scheme.shortDesc}">Short description</p>
+                                        <div class="d-flex gap-2 mb-2">
+                                            <span class="badge bg-secondary" th:text="${bookmark.scheme.category.name}">Category</span>
+                                            <span class="badge" th:classappend="${'bg-' + bookmark.scheme.level.toLowerCase()}" 
+                                                  th:text="${bookmark.scheme.level}">Level</span>
+                                        </div>
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>
+                                            Bookmarked on <span th:text="${#temporals.format(bookmark.bookmarkedAt, 'dd MMM yyyy')}">Date</span>
+                                        </small>
+                                    </div>
+                                    <div class="col-md-4 text-end">
+                                        <div class="btn-group">
+                                            <a th:href="@{/scheme/{id}(id=${bookmark.scheme.id})}" class="btn btn-primary">
+                                                <i class="fas fa-eye me-1"></i>View Details
+                                            </a>
+                                            <button class="btn btn-outline-danger" 
+                                                    th:onclick="|removeBookmark(this, ${bookmark.scheme.id})|">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Remove bookmark functionality
+        async function removeBookmark(button, schemeId) {
+            if (!confirm('Are you sure you want to remove this bookmark?')) {
+                return;
+            }
+
+            const csrfToken = document.querySelector('input[name="_csrf"]').value;
+            
+            try {
+                const response = await fetch('/user/bookmark/' + schemeId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Remove the bookmark card from UI
+                    button.closest('.bookmark-card').remove();
+                    
+                    // Update bookmark count
+                    const badge = document.querySelector('.badge');
+                    const currentCount = parseInt(badge.textContent);
+                    badge.textContent = (currentCount - 1) + ' bookmarks';
+                    
+                    // Show success message
+                    alert('Bookmark removed successfully!');
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error removing bookmark');
+            }
+        }
+    </script>
+</body>
+</html>

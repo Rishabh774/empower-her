@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <footer th:fragment="footer" class="bg-dark text-light mt-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="mb-3">
+                        <i class="fas fa-heart me-2 text-primary"></i>EmpowerHer
+                    </h5>
+                    <p class="mb-3">
+                        Empowering women through accessible government schemes and opportunities. 
+                        We bridge the gap between women and the schemes designed for their empowerment.
+                    </p>
+                    <div class="d-flex">
+                        <a href="#" class="text-light me-3">
+                            <i class="fab fa-facebook fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-light me-3">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-light me-3">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-light">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a th:href="@{/home}" class="text-light text-decoration-none">Home</a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories}" class="text-light text-decoration-none">All Schemes</a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=CENTRAL}" class="text-light text-decoration-none">Central Schemes</a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=STATE}" class="text-light text-decoration-none">State Schemes</a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/login}" class="text-light text-decoration-none">Login</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3">Categories</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=CENTRAL}" class="text-light text-decoration-none">
+                                <i class="fas fa-landmark me-2 text-primary"></i>Central Government
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=STATE}" class="text-light text-decoration-none">
+                                <i class="fas fa-map-marker-alt me-2 text-success"></i>State Government
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=DISTRICT}" class="text-light text-decoration-none">
+                                <i class="fas fa-city me-2 text-warning"></i>District Level
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a th:href="@{/categories?level=PRIVATE}" class="text-light text-decoration-none">
+                                <i class="fas fa-hands-helping me-2 text-info"></i>Private/NGO
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-3">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-envelope me-2 text-primary"></i>
+                            <span>contact@empowerher.com</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-phone me-2 text-success"></i>
+                            <span>+91-9876543210</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-map-marker-alt me-2 text-danger"></i>
+                            <span>New Delhi, India</span>
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-clock me-2 text-warning"></i>
+                            <span>Mon - Fri: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="bg-light my-4">
+
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 EmpowerHer. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-light text-decoration-none me-3">Terms of Service</a>
+                    <a href="#" class="text-light text-decoration-none">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

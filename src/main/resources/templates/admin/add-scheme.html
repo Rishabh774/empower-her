@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Scheme - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --background-color: #FFF4F6;
+            --text-color: #2B2B2B;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .admin-sidebar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .admin-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(231, 84, 128, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #d84575;
+            border-color: #d84575;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-secondary {
+            border: 2px solid #6c757d;
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .section-header {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 admin-sidebar">
+                <div class="sidebar-header">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo">
+                    <h4>Admin Panel</h4>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/schemes}">
+                        <i class="fas fa-list"></i>Manage Schemes
+                    </a>
+                    <a class="nav-link active" th:href="@{/admin/schemes/add}">
+                        <i class="fas fa-plus-circle"></i>Add New Scheme
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/categories}">
+                        <i class="fas fa-layer-group"></i>Categories
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4">
+                <!-- Header -->
+                <div class="admin-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="fas fa-plus-circle me-2" style="color: var(--primary-color);"></i>
+                            Add New Scheme
+                        </h2>
+                        <a th:href="@{/admin/schemes}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Schemes
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Error Messages -->
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <!-- Add Scheme Form -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="form-container">
+                            <form th:action="@{/admin/schemes/add}" method="post" enctype="multipart/form-data" th:object="${schemeDto}">
+                                
+                                <!-- Basic Information -->
+                                <h4 class="section-header">
+                                    <i class="fas fa-info-circle me-2"></i>Basic Information
+                                </h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="title" class="form-label">Scheme Title *</label>
+                                        <input type="text" class="form-control" id="title" th:field="*{title}" 
+                                               placeholder="Enter scheme title" required>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="categoryId" class="form-label">Category *</label>
+                                        <select class="form-select" id="categoryId" th:field="*{categoryId}" required>
+                                            <option value="">Select Category</option>
+                                            <option th:each="category : ${categories}" 
+                                                    th:value="${category.id}" 
+                                                    th:text="${category.name}">
+                                                Category
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="level" class="form-label">Level *</label>
+                                        <select class="form-select" id="level" th:field="*{level}" required>
+                                            <option value="">Select Level</option>
+                                            <option value="CENTRAL">Central Government</option>
+                                            <option value="STATE">State Government</option>
+                                            <option value="DISTRICT">District Level</option>
+                                            <option value="PRIVATE">Private/NGO</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="applyLink" class="form-label">Apply Link</label>
+                                        <input type="url" class="form-control" id="applyLink" th:field="*{applyLink}" 
+                                               placeholder="https://example.com/apply">
+                                    </div>
+
+                                    <div class="col-12 mb-3">
+                                        <label for="shortDesc" class="form-label">Short Description *</label>
+                                        <textarea class="form-control" id="shortDesc" th:field="*{shortDesc}" 
+                                                  rows="3" placeholder="Brief description of the scheme" 
+                                                  maxlength="500" required></textarea>
+                                        <div class="form-text">Maximum 500 characters</div>
+                                    </div>
+
+                                    <div class="col-12 mb-4">
+                                        <label for="fullDesc" class="form-label">Full Description</label>
+                                        <textarea class="form-control" id="fullDesc" th:field="*{fullDesc}" 
+                                                  rows="6" placeholder="Detailed description of the scheme"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Media Files -->
+                                <h4 class="section-header">
+                                    <i class="fas fa-images me-2"></i>Media Files
+                                </h4>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="imageFile" class="form-label">Scheme Image</label>
+                                        <input type="file" class="form-control" id="imageFile" th:field="*{imageFile}" 
+                                               accept="image/*">
+                                        <div class="form-text">Recommended size: 800x400px, JPG/PNG format</div>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pdfFile" class="form-label">PDF Document</label>
+                                        <input type="file" class="form-control" id="pdfFile" th:field="*{pdfFile}" 
+                                               accept=".pdf">
+                                        <div class="form-text">Upload PDF brochure or document</div>
+                                    </div>
+
+                                    <div class="col-12 mb-4">
+                                        <label for="videoUrl" class="form-label">Video URL</label>
+                                        <input type="url" class="form-control" id="videoUrl" th:field="*{videoUrl}" 
+                                               placeholder="https://youtube.com/embed/...">
+                                        <div class="form-text">YouTube embed URL or other video platform</div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Content -->
+                                <h4 class="section-header">
+                                    <i class="fas fa-file-alt me-2"></i>Additional Content
+                                </h4>
+                                <div class="row">
+                                    <div class="col-12 mb-4">
+                                        <label for="blogContent" class="form-label">Blog Content</label>
+                                        <textarea class="form-control" id="blogContent" th:field="*{blogContent}" 
+                                                  rows="8" placeholder="Detailed blog content about the scheme"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Form Actions -->
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary me-3">
+                                            <i class="fas fa-save me-1"></i>Save Scheme
+                                        </button>
+                                        <a th:href="@{/admin/schemes}" class="btn btn-outline-secondary">
+                                            <i class="fas fa-times me-1"></i>Cancel
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

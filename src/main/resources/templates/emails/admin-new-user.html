@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Registration - EmpowerHer Admin</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .content {
+            padding: 25px;
+        }
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        .user-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #E75480;
+        }
+        .btn {
+            display: inline-block;
+            background: #E75480;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>👤 New User Registered</h1>
+            <p>EmpowerHer Admin Notification</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>Hello Admin,</h2>
+            
+            <p>A new user has registered on EmpowerHer platform.</p>
+
+            <div class="user-card">
+                <h3 style="margin-top: 0; color: #E75480;">User Details:</h3>
+                <p><strong>Username:</strong> <span th:text="${userName}">username</span></p>
+                <p><strong>Email:</strong> <span th:text="${userEmail}">user@email.com</span></p>
+                <p><strong>Registration Date:</strong> <span th:text="${#temporals.format(registrationDate, 'dd MMM yyyy HH:mm')}">date</span></p>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <a th:href="${adminUrl}" class="btn">View in Admin Panel</a>
+            </div>
+
+            <p><strong>Platform Statistics:</strong></p>
+            <ul>
+                <li>New user added to the empowerment community</li>
+                <li>Opportunity to engage and provide support</li>
+                <li>Potential for scheme participation and feedback</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2024 EmpowerHer Admin System</p>
+            <p style="font-size: 10px; color: #999;">
+                This is an automated notification from EmpowerHer admin system.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

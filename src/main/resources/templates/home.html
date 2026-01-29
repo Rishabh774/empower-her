@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmpowerHer - Women Schemes Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --light-bg: #FFF4F6;
+            --dark-text: #2B2B2B;
+        }
+
+        .hero-section {
+            background-color: var(--light-bg);
+            padding: 100px 0 80px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 100%;
+            border-left: 6px solid var(--primary-color);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .scheme-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            height: 100%;
+            border-left: 6px solid var(--primary-color);
+        }
+        
+        .scheme-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 80px 0;
+            border-radius: 40px;
+            margin: 50px 0;
+        }
+        
+        .search-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-color);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .scheme-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        .scheme-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .level-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .level-central { background: #E75480; }
+        .level-state { background: #4CAF50; }
+        .level-district { background: #2196F3; }
+        .level-private { background: #FF9800; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #E75480 !important;">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo" class="me-2" height="50">
+                EmpowerHer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Schemes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-sm ms-2" href="/login">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light btn-sm ms-2" href="/register">
+                            <i class="fas fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4" style="color: #6A1E55;">Empowering Women Through Opportunities</h1>
+                    <p class="lead mb-4">Discover government schemes designed to transform lives and create lasting impact for women across India.</p>
+                    
+                    <!-- Search Bar -->
+					<!-- home.html mein search form ko update karen: -->
+					<div class="search-box">
+					    <form action="/search" method="get" class="d-flex flex-column flex-md-row gap-3">
+					        <input type="text" 
+					               name="query" 
+					               class="form-control form-control-lg border-0" 
+					               placeholder="Search for schemes by title, description..." 
+					               aria-label="Search schemes" 
+					               required
+					               minlength="2">
+					        <button type="submit" class="btn btn-primary px-4 py-3">
+					            <i class="fas fa-search me-2"></i>Search
+					        </button>
+					    </form>
+					</div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img th:src="@{/images/logo.png}" alt="Women Empowerment" class="img-fluid" style="max-height: 400px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #6A1E55;">Browse by Category</h2>
+                <p class="text-muted lead">Explore schemes from different government levels</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <a href="/categories?level=CENTRAL" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-landmark fa-3x" style="color: #E75480;"></i>
+                            </div>
+                            <h5 class="fw-bold">Central Govt</h5>
+                            <p class="text-muted">National level schemes for women empowerment</p>
+                            <span class="badge" style="background: #E75480;">
+                                <span th:text="${centralCount} + ' Schemes'">0 Schemes</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <a href="/categories?level=STATE" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-map-marker-alt fa-3x" style="color: #E75480;"></i>
+                            </div>
+                            <h5 class="fw-bold">State Govt</h5>
+                            <p class="text-muted">State specific women welfare schemes</p>
+                            <span class="badge" style="background: #E75480;">
+                                <span th:text="${stateCount} + ' Schemes'">0 Schemes</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <a href="/categories?level=DISTRICT" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-city fa-3x" style="color: #E75480;"></i>
+                            </div>
+                            <h5 class="fw-bold">District Level</h5>
+                            <p class="text-muted">Local district schemes and initiatives</p>
+                            <span class="badge" style="background: #E75480;">
+                                <span th:text="${districtCount} + ' Schemes'">0 Schemes</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <a href="/categories?level=PRIVATE" class="text-decoration-none">
+                        <div class="category-card">
+                            <div class="icon-wrapper mb-3">
+                                <i class="fas fa-hands-helping fa-3x" style="color: #E75480;"></i>
+                            </div>
+                            <h5 class="fw-bold">Private/NGO</h5>
+                            <p class="text-muted">Private initiatives for women development</p>
+                            <span class="badge" style="background: #E75480;">
+                                <span th:text="${privateCount} + ' Schemes'">0 Schemes</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Schemes -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-5 flex-column flex-md-row">
+                <div class="text-center text-md-start mb-4 mb-md-0">
+                    <h2 class="display-5 fw-bold" style="color: #6A1E55;">Featured Schemes</h2>
+                    <p class="text-muted lead">Latest women empowerment opportunities</p>
+                </div>
+                <a href="/categories" class="btn btn-primary btn-lg">
+                    View All <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            
+            <!-- Dynamic Schemes from Database -->
+            <div class="row g-4" th:if="${not #lists.isEmpty(schemes)}">
+                <div class="col-md-6 col-lg-4" th:each="scheme : ${schemes}">
+                    <div class="scheme-card">
+                        <div class="position-relative">
+                            <div class="scheme-image">
+                                <th:block th:if="${scheme.imageUrl != null and scheme.imageUrl != ''}">
+                                    <img th:src="${scheme.imageUrl}" th:alt="${scheme.title}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                                </th:block>
+                                <th:block th:unless="${scheme.imageUrl != null and scheme.imageUrl != ''}">
+                                    <i class="fas fa-hands-helping fa-3x"></i>
+                                </th:block>
+                                <span class="level-badge" th:classappend="'level-' + ${scheme.level.toLowerCase()}">
+                                    <!-- FIXED: Proper ternary operator syntax -->
+                                    <i th:class="'fas ' + (${scheme.level} == 'CENTRAL' ? 'fa-landmark' : (${scheme.level} == 'STATE' ? 'fa-map-marker-alt' : (${scheme.level} == 'DISTRICT' ? 'fa-city' : 'fa-hands-helping'))) + ' me-1'"></i>
+                                    <span th:text="${scheme.level}">Level</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-bold" th:text="${scheme.title}">Scheme Title</h5>
+                            <p class="card-text text-muted" th:text="${scheme.shortDesc != null ? scheme.shortDesc : 'No description available.'}">
+                                Scheme description will appear here.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <a th:href="@{/scheme/{id}(id=${scheme.id})}" class="btn btn-primary btn-sm">
+                                    View Details
+                                </a>
+                                <small class="text-muted" th:if="${scheme.active}">Active</small>
+                                <small class="text-danger" th:unless="${scheme.active}">Inactive</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div class="text-center py-5" th:if="${#lists.isEmpty(schemes)}">
+                <i class="fas fa-inbox fa-4x text-muted mb-4"></i>
+                <h3 class="text-muted">No Schemes Available</h3>
+                <p class="text-muted mb-4">There are currently no schemes to display.</p>
+                <a href="/categories" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Browse All Schemes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6">
+                    <div class="display-4 fw-bold" th:text="${totalSchemes}">0</div>
+                    <p class="mb-0">Active Schemes</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="display-4 fw-bold">4</div>
+                    <p class="mb-0">Categories</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="display-4 fw-bold">1000+</div>
+                    <p class="mb-0">Women Empowered</p>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="display-4 fw-bold">24/7</div>
+                    <p class="mb-0">Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #6A1E55; color: white; padding: 40px 0 20px; margin-top: 50px;">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo" height="50" class="mb-3">
+                    <p class="mb-0">Empowering women through accessible government schemes and opportunities.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="/home" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Home</a>
+                        <a href="/categories" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">All Schemes</a>
+                        <a href="/about" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">About Us</a>
+                        <a href="/contact" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i>contact@empowerher.com</p>
+                    <p class="mb-0"><i class="fas fa-phone me-2"></i>+91-9876543210</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 EmpowerHer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

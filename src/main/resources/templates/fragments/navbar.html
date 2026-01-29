@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head></head>
+<body>
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/home}">
+                <i class="fas fa-heart"></i> EmpowerHer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/home}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/categories}">All Categories</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" th:href="@{/categories?level=CENTRAL}">Central Govt</a></li>
+                            <li><a class="dropdown-item" th:href="@{/categories?level=STATE}">State Govt</a></li>
+                            <li><a class="dropdown-item" th:href="@{/categories?level=DISTRICT}">District</a></li>
+                            <li><a class="dropdown-item" th:href="@{/categories?level=PRIVATE}">Private/NGO</a></li>
+                        </ul>
+                    </li>
+                    <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/dashboard}">Admin Dashboard</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" th:href="@{/login}">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()" class="nav-item">
+                        <a class="nav-link" th:href="@{/register}">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> 
+                            <span sec:authentication="name">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li sec:authorize="hasAuthority('ROLE_USER')">
+                                <a class="dropdown-item" th:href="@{/user/dashboard}">
+                                    <i class="fas fa-tachometer-alt me-2"></i>My Dashboard
+                                </a>
+                            </li>
+                            <li sec:authorize="hasAuthority('ROLE_USER')">
+                                <a class="dropdown-item" th:href="@{/user/bookmarks}">
+                                    <i class="fas fa-bookmark me-2"></i>My Bookmarks
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" style="display: inline;">
+                                    <button class="dropdown-item" type="submit">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --light-bg: #FFF4F6;
+            --dark-text: #2B2B2B;
+        }
+
+        .contact-hero {
+            background: linear-gradient(135deg, #E75480 0%, #6A1E55 100%);
+            color: white;
+            padding: 80px 0 60px;
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: none;
+            transition: all 0.3s ease;
+            border-left: 6px solid #E75480;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .form-control-contact {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px 20px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .form-control-contact:focus {
+            border-color: #E75480;
+            box-shadow: 0 0 0 3px rgba(231, 84, 128, 0.1);
+        }
+        
+        .btn-contact {
+            background: linear-gradient(135deg, #E75480, #6A1E55);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+        }
+        
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(231, 84, 128, 0.3);
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #FFF4F6;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #E75480;
+        }
+        
+        .contact-info-item:hover {
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #E75480, #6A1E55);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .social-contact {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .social-contact .btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-contact .btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #E75480 !important;">
+        <div class="container">
+            <a class="navbar-brand" href="/home">
+                <img src="/images/logo.png" alt="EmpowerHer Logo" class="me-2" height="50">
+                EmpowerHer
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Schemes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary btn-sm ms-2" href="/login">
+                            <i class="fas fa-sign-in-alt me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light btn-sm ms-2" href="/register">
+                            <i class="fas fa-user-plus me-1"></i> Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">Get In Touch</h1>
+                    <p class="lead mb-0">We're here to help you navigate through women empowerment opportunities</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="glass-effect p-4 rounded-3 d-inline-block">
+                        <img src="/images/logo.png" alt="EmpowerHer Logo" height="50" class="mb-3">
+                        <h4 class="text-white mb-0">24/7 Support</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Contact Form -->
+                <div class="col-lg-8">
+                    <div class="contact-card">
+                        <h3 class="fw-bold mb-4">
+                            <i class="fas fa-envelope me-2" style="color: #E75480;"></i>
+                            Send us a Message
+                        </h3>
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label fw-semibold">Your Name</label>
+                                    <input type="text" class="form-control-contact" id="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label fw-semibold">Email Address</label>
+                                    <input type="email" class="form-control-contact" id="email" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label fw-semibold">Subject</label>
+                                    <input type="text" class="form-control-contact" id="subject" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label fw-semibold">Message</label>
+                                    <textarea class="form-control-contact" id="message" rows="6" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-contact btn-lg">
+                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-lg-4">
+                    <div class="contact-info">
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-2">Address</h6>
+                                <p class="text-muted mb-0">
+                                    EmpowerHer Foundation<br>
+                                    New Delhi, India - 110001
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-2">Phone</h6>
+                                <p class="text-muted mb-0">+91-9876543210</p>
+                                <p class="text-muted mb-0">+91-9876543211</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-2">Email</h6>
+                                <p class="text-muted mb-0">contact@empowerher.com</p>
+                                <p class="text-muted mb-0">support@empowerher.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-2">Working Hours</h6>
+                                <p class="text-muted mb-0">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p class="text-muted mb-0">Saturday: 10:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-2">Follow Us</h6>
+                                <div class="social-contact">
+                                    <a href="#" class="btn btn-outline-primary">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-info">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-danger">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-success">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="contact-card">
+                <h3 class="fw-bold mb-4">
+                    <i class="fas fa-map me-2" style="color: #E75480;"></i>
+                    Find Us Here
+                </h3>
+                <div class="map-placeholder rounded-3 text-center py-5" style="background: linear-gradient(135deg, #E75480, #6A1E55); color: white;">
+                    <i class="fas fa-map-marked-alt fa-4x mb-3 opacity-50"></i>
+                    <h5>Interactive Map</h5>
+                    <p class="mb-0">Location map would be integrated here</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: #6A1E55; color: white; padding: 40px 0 20px; margin-top: 50px;">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <img src="/images/logo.png" alt="EmpowerHer Logo" height="50" class="mb-3">
+                    <p class="mb-0">Empowering women through accessible government schemes and opportunities.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="/home" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Home</a>
+                        <a href="/categories" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">All Schemes</a>
+                        <a href="/about" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">About Us</a>
+                        <a href="/contact" style="color: white; text-decoration: none; margin-bottom: 10px; display: block;">Contact</a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Contact Info</h5>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i>contact@empowerher.com</p>
+                    <p class="mb-0"><i class="fas fa-phone me-2"></i>+91-9876543210</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 EmpowerHer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - EmpowerHer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #E75480;
+            --secondary-color: #6A1E55;
+            --accent-color: #F5B841;
+            --background-color: #FFF4F6;
+            --text-color: #2B2B2B;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .user-sidebar {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .sidebar-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-header img {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link i {
+            width: 25px;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .user-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid #e9ecef;
+            padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+        }
+
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(231, 84, 128, 0.25);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background-color: #d84575;
+            border-color: #d84575;
+        }
+
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 user-sidebar">
+                <div class="sidebar-header">
+                    <img th:src="@{/images/logo.png}" alt="EmpowerHer Logo">
+                    <h4>User Panel</h4>
+                </div>
+                <nav class="nav flex-column">
+                    <a class="nav-link" th:href="@{/user/dashboard}">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" th:href="@{/user/schemes}">
+                        <i class="fas fa-list"></i>All Schemes
+                    </a>
+                    <a class="nav-link" th:href="@{/user/bookmarks}">
+                        <i class="fas fa-bookmark"></i>My Bookmarks
+                    </a>
+                    <a class="nav-link active" th:href="@{/user/profile}">
+                        <i class="fas fa-user-cog"></i>Profile
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 ml-sm-auto px-4">
+                <!-- Header -->
+                <div class="user-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="h4 mb-0">
+                            <i class="fas fa-user-cog me-2" style="color: var(--primary-color);"></i>
+                            My Profile
+                        </h2>
+                        <span class="text-muted">
+                            <i class="fas fa-calendar me-1"></i>
+                            Member since <span th:text="${#temporals.format(user.createdAt, 'MMM yyyy')}">Date</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Success/Error Messages -->
+                <div th:if="${success}" class="alert alert-success alert-dismissible fade show mt-3">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <span th:text="${success}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <div class="row mt-4">
+                    <!-- Profile Information -->
+                    <div class="col-lg-8">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <h3 th:text="${user.username}">Username</h3>
+                                <p class="text-muted" th:text="${user.role == 'ROLE_ADMIN' ? 'Administrator' : 'User'}">Role</p>
+                            </div>
+
+                            <form th:action="@{/user/profile/update}" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="username" class="form-label fw-semibold">
+                                            <i class="fas fa-user me-2 text-primary"></i>Username
+                                        </label>
+                                        <input type="text" class="form-control" id="username" name="username" 
+                                               th:value="${user.username}" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label fw-semibold">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                        </label>
+                                        <input type="email" class="form-control" id="email" name="email" 
+                                               th:value="${user.email}" required>
+                                    </div>
+                                    
+                                    <div class="col-12 mb-3">
+                                        <label for="role" class="form-label fw-semibold">
+                                            <i class="fas fa-user-tag me-2 text-primary"></i>Account Type
+                                        </label>
+                                        <input type="text" class="form-control" id="role" 
+                                               th:value="${user.role == 'ROLE_ADMIN' ? 'Administrator' : 'Regular User'}" 
+                                               disabled>
+                                        <div class="form-text">Account type cannot be changed</div>
+                                    </div>
+                                    
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label fw-semibold">
+                                            <i class="fas fa-calendar me-2 text-primary"></i>Member Since
+                                        </label>
+                                        <input type="text" class="form-control" 
+                                               th:value="${#temporals.format(user.createdAt, 'dd MMMM yyyy')}" 
+                                               disabled>
+                                    </div>
+                                    
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-save me-2"></i>Update Profile
+                                        </button>
+                                        <a th:href="@{/user/dashboard}" class="btn btn-outline-secondary ms-2">
+                                            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="col-lg-4">
+                        <div class="stats-card mb-4">
+                            <i class="fas fa-list fa-2x text-primary mb-3"></i>
+                            <div class="stats-number" th:text="${schemesCount}">0</div>
+                            <div class="stats-label">Available Schemes</div>
+                        </div>
+                        
+                        <div class="stats-card mb-4">
+                            <i class="fas fa-bookmark fa-2x text-warning mb-3"></i>
+                            <div class="stats-number" th:text="${bookmarksCount}">0</div>
+                            <div class="stats-label">Bookmarks</div>
+                        </div>
+                        
+                        <div class="stats-card">
+                            <i class="fas fa-user-check fa-2x text-success mb-3"></i>
+                            <div class="stats-number" th:text="${user.enabled ? 'Active' : 'Inactive'}">Status</div>
+                            <div class="stats-label">Account Status</div>
+                        </div>
+
+                        <!-- Security Info -->
+                        <div class="profile-card mt-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-shield-alt me-2 text-success"></i>Security
+                            </h5>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Account Status</span>
+                                <span th:if="${user.enabled}" class="badge bg-success">Active</span>
+                                <span th:unless="${user.enabled}" class="badge bg-danger">Inactive</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span>Last Login</span>
+                                <span class="text-muted">Recently</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Password</span>
+                                <span class="text-muted">••••••••</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
